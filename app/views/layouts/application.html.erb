@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>FoodDemo</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <link
+    href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
+    rel="stylesheet">
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+ </head>
+
+  <body>
+
+
+  
+  <!-- ***** Header Area Start ***** -->
+  <header class="header-area header-sticky">
+      <div class="container">
+          <div class="row">
+              <div class="col-12">
+                  <nav class="main-nav">
+                      <!-- ***** Logo Start ***** -->
+                      <a href="/" class="logo">Food Store <em> Website</em></a
+                      <!-- ***** Logo End ***** -->
+                      <!-- ***** Menu Start ***** -->
+                      <ul class="nav">
+                      <li><%= link_to"home" , root_path %></li>
+                          <li><%= link_to"food" , foods_path %></li>
+                          <li><%= link_to"cart" , carts_path %></li>
+                          <li><%= link_to"checkout" , checkouts_path %></li>
+                          <li><%= link_to"profile" , profiles_path %></li>
+               <%if user_signed_in? %>
+                       <li> <%= link_to "Sign out", destroy_user_session_path, :method => :delete %> </li>
+                <% else %> 
+                  <li class="dropdown">
+                     <%= link_to "Sign in", new_user_session_path, class:" active"%>
+                  </li>
+                <% end %>
+                      <a class='menu-trigger'>
+                          <span>Menu</span>
+                      </a>
+                      <!-- ***** Menu End ***** -->
+                  </nav>
+              </div>
+          </div>
+      </div>
+  </header>
+  <!-- ***** Header Area End ***** -->
+    <%= yield %>
+    <!-- ***** Footer Start ***** -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>
+                        Copyright © 2020 Company Name
+                        - Template by: <a href="https://www.phpjabbers.com/">PHPJabbers.com</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <%= javascript_include_tag 'application' %> 
+    
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+  </body>
+</html>

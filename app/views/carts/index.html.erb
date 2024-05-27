@@ -1,0 +1,107 @@
+<!-- ***** Call to Action Start ***** -->
+  <section class="section section-bg" id="call-to-action"
+    style="background-image: url(<%= asset_path 'banner-image-1-1920x500.jpg' %>")
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 offset-lg-1">
+          <div class="cta-content">
+            <br>
+            <br>
+            <h2>Easy <em>Carts</em></h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ***** Call to Action End ***** -->
+
+  <!-- ***** Fleet Starts ***** -->
+  <main>
+  <div class="container">
+  <div class="row">
+  <div class="col-9">
+  
+  <div class="table-responsive cart_info">
+      <table class="table table-condensed">
+          <thead>
+              <tr class="cart_menu">
+              <td class="image">Food</td>
+                  <td class="description">Description</td>
+                  <td class="price">Price</td>
+                  <td class="total">Total</td>
+                  <td class="Remove">Remove</td>
+               </tr>
+          </thead> 
+
+          <tbody>
+           <% total_sum=0 %>
+            <% @carts.each  do |cart| %>
+              <tr>
+                  <td class="cart_product">
+                      <% cart.food.images.each do |img| %>
+                          <%= image_tag img, size: "50x50" %>
+                      <% end %>
+                  </td>
+                  <td class="cart_description">
+                      <h4><a href=""><%=cart.food.name %></a></h4>
+                  </td>
+                  <td class="cart_price">
+                      <p>Rs.<%=cart.food.price %></p>
+                  </td>
+                  <td class="cart_quantity">
+                      <div class="cart_quantity_button">
+                          <%# <a class="cart_quantity_up" href="">  </a> %>
+        <%= link_to "+", increse_qty_path(id: cart.id, qty: cart.quantity+1)%>
+                          <input class="cart_quantity_input" type="text" name="quantity" value="<%=cart.quantity %>" autocomplete="off" size="2">
+                          <%# <a class="cart_quantity_down" href=""> - </a> %>
+          <%= link_to "-", increse_qty_path(id: cart.id, qty: cart.quantity-1)%>
+                      </div>
+                  </td>
+    <td class="cart_total">
+      <% qty=cart.food.price * cart.quantity%>
+      <% total_sum += qty%>
+                      <p class="cart_total_price">Rs.<%=qty%></p>
+                  </td>
+                  <td class="cart_delete">
+                    <%= link_to ' X ', remove_item_path(cart),
+                          :confirm => 'Are you sure?', :method => :delete %>
+                      <%# <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a> %>
+                  </td>
+              </tr>
+            <%end%>
+          </tbody>
+      </table>
+  </div>
+  </div>
+  </div>
+</div>
+       <aside>
+      
+      
+      <div class="summary">
+        <div class="summary-subtotal">
+          <div class="subtotal-title">Subtotal</div>
+          <p>Rs.<%= total_sum%></p>
+          <div class="summary-promo hide">
+            <div class="promo-title">Promotion</div>
+            <div class="promo-value final-value" id="basket-promo"></div>
+          </div>
+        </div>
+        <div class="summary-delivery">
+          <select name="delivery-collection" class="summary-delivery-selection">
+            <option value="signed-for">COD</option>
+          </select>
+        </div>
+        <div class="summary-total">
+          <div class="total-title">Total</div>
+          <p><%= total_sum%></p> 
+        </div>
+        <div class="summary-checkout">
+          <li><%= link_to "checkout", checkouts_path %></li>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+
+  <!-- ***** Fleet Ends ***** -->

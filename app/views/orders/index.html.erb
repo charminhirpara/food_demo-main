@@ -1,0 +1,90 @@
+<!-- ***** Call to Action Start ***** -->
+<section class="section section-bg" id="call-to-action"
+    style="background-image: url(<%= asset_path 'banner-image-1-1920x500.jpg' %>")
+     <div class="container">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1">
+                <div class="cta-content">
+                    <br>
+                    <br>
+                    <h2>Conform <em>Your Order</em></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ***** Call to Action End ***** -->
+
+<section id="cart_items">
+  <div class="container">
+  <%= form_with url: orders_path do |form| %>
+      <div class="row">
+       <div class="col-md-7">
+         <div class="shopper-informations">
+           <div class=" clearfix">
+            <div class="bill-to">
+              <h2 >Bill To</h2>
+               <div class="form-one">
+                 <form>
+                   <div class="row">
+                    <div class="col-sm-6 col-xs-12">
+                <label>Email</label>
+                <input type="text" name="email" placeholder="Email *" value="<%= current_user.email %>">
+                <label>Phone No</label>
+                <input type="text"name="phone_no" placeholder="Phone No *" value="<%= current_user.phone_no %>">
+              </div>
+            </div>
+            
+                <div class="row">
+                <div class="col-sm-3 col-xs-12">
+                <label>Address</label>
+                <input type="text" name="address" placeholder="Address *" value="<%= current_user.address%>">
+                <label>landmark</label>
+                <input type="text" name="landmark" placeholder="Landmark *" value="<%= current_user.landmark%>">
+                <label>city<label>
+                <input type="text" name="city" placeholder="City *" value="<%= current_user.city%>">
+                </div>
+              </form>
+              </div>
+                </div>
+            </div>
+        </div>
+      </div>
+      <h3>Cash on Delivery</h3>
+      <div class="col-md-12">
+      <% 
+        total_sum=0
+        @carts.each do |cart|
+            qty=cart.food.price * cart.quantity
+        total_sum += qty
+        end
+      %>
+    <li class="list-group-item" style="margin:0 0  1px">
+        <div class="row">
+              <div class="col-6">
+                  <h4><strong>Total</strong></h4>
+              </div>
+
+              <div class="col-6">
+                  <h4 class="text-right">Rs.<%= total_sum%></h4>
+              </div>
+          </div>
+      </li>
+
+      <li class="list-group-item" style="margin:0 0 -1px">
+          <div class="row">
+              <div class="col-6">
+                  <strong>Sub-Total</strong>
+              </div>
+
+              <div class="col-6">
+                  <h5 class="text-right">Rs.<%= total_sum%></h5>
+              </div>
+          </div>
+    </li>
+     <br>
+    </div>
+    </div>
+    <% end %>
+    </div>
+</section> 

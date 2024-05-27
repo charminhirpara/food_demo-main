@@ -1,0 +1,83 @@
+<!-- ***** Call to Action Start ***** -->
+<section class="section section-bg" id="call-to-action"
+    style="background-image: url(<%= asset_path 'banner-image-1-1920x500.jpg' %>")
+     <div class="container">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1">
+                <div class="cta-content">
+                    <br>
+                    <br>
+                    <h2>Our <em>Food</em></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ***** Call to Action End ***** -->
+
+<!-- ***** Fleet Starts ***** -->
+<div class=" mt-5 pt-5">
+    <form action >
+    <%= form_with url: foods_path, method:"get" do |form| %>    
+        <input type="hidden" name="key" value="<%= params[:key] %>">
+          <select name="sort">
+            <option value="created_at">New Items</option>
+            <option value="price desc">High to Low</option>
+            <option value="price asc">Low to High</option>
+        </select>
+        <h2>Categories</h2>
+        <input type="checkbox" id="brack-fast" name="brack-fast" value="brack-fast">
+        <label for="brack-fast"> brack-fast</label>
+        <input type="checkbox" id="lunch" name="lunch" value="lunch">
+        <label for="lunch">  lunch</label>
+        <input type="checkbox" id="dinner" name="dinner" value="dinner">
+        <label for="diner"> dinner</label><br>
+        <input type="submit" value="Submit">
+        <%end%>
+   </form>
+   
+</div>
+
+<section class="section" id="trainers">
+  <div class="container">
+        <br>
+        <br>
+       
+        <div class="row">
+            <% @foods.each do |food|%>
+                <div class="col-lg-4">
+                <div class="image-thumb">
+                    <div class="trainer-item">
+                        <%= link_to food do %>
+                            <% food.images.each do |img| %>
+                                <%= image_tag  img , size: "50x300"%>
+                            <%end%>
+                     <%end%>
+                         <div class="down-content">
+                             <h2><%= food.description%></h2>
+                             <h2>₹<%= food.price %></h2>
+                         </div>
+                         <ul class="social-icons">
+                         <div class="main-button">
+                           
+                             <%= form_with url: carts_path, method: 'post' do |form| %>
+                                <input type="hidden" name="food_id" value="<%= food.id %>">
+                                <button type="submit" class="btn btn-fefault cart">
+                                    <i class="food-cart"></i> Add to cart
+                                </button>
+                            <% end %>
+                         </div>
+                         
+                  </div>     
+             </div>
+      </div>
+            <% end%>
+        </div>
+
+        <br>
+        
+        <h2><%==pagy_nav(@pagy)%></h2>
+  </div>
+</section>
+<!-- ***** Fleet Ends ***** -->
+                      
